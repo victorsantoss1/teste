@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyRota – Sua Jornada Começa Aqui</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0a0a14;
+    --sky: #1a3a6b;
+    --sky-light: #2a5298;
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --cream: #f5f0e8;
+    --white: #ffffff;
+    --mist: rgba(255,255,255,0.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ink);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ─────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 5vw;
+    background: rgba(10,10,20,0.6);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: var(--white);
+  }
+
+  .logo span { color: var(--gold); }
+
+  nav ul {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  nav ul a {
+    text-decoration: none; color: rgba(255,255,255,0.7);
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.25s;
+  }
+
+  nav ul a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--ink) !important;
+    padding: 0.5rem 1.4rem;
+    border-radius: 2px;
+    font-weight: 700 !important;
+    transition: background 0.25s !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-light) !important; color: var(--ink) !important; }
+
+  /* ── HERO ─────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    position: relative; overflow: hidden;
+    padding: 8rem 5vw 5rem;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 30%, rgba(42,82,152,0.45) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(201,168,76,0.12) 0%, transparent 60%),
+      linear-gradient(160deg, #0a0a14 0%, #0d1830 50%, #0a0a14 100%);
+  }
+
+  /* Star field */
+  .stars {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.9) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 40% 10%, rgba(255,255,255,0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 60%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 25%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 55%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 15% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 85%, rgba(255,255,255,0.3) 0%, transparent 100%);
+  }
+
+  /* Plane streak */
+  .plane-streak {
+    position: absolute; top: 28%; left: -10%;
+    width: 55%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+    transform: rotate(-8deg);
+    animation: streak 8s ease-in-out infinite;
+  }
+
+  @keyframes streak {
+    0%, 100% { opacity: 0; transform: rotate(-8deg) translateX(-5%); }
+    50% { opacity: 1; transform: rotate(-8deg) translateX(5%); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center; max-width: 860px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 0.35rem 1rem; border-radius: 2px;
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -2px;
+    animation: fadeUp 0.7s 0.15s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic; color: var(--gold);
+  }
+
+  .hero p {
+    margin: 1.6rem auto 2.5rem;
+    max-width: 520px;
+    font-size: 1.1rem; font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.45s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold); color: var(--ink);
+    padding: 0.85rem 2.2rem; border: none; border-radius: 2px;
+    font-size: 0.9rem; font-weight: 700; letter-spacing: 0.05em;
+    cursor: pointer; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    box-shadow: 0 4px 24px rgba(201,168,76,0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(201,168,76,0.4);
+    background: var(--gold-light);
+  }
+
+  .btn-secondary {
+    background: transparent; color: var(--white);
+    padding: 0.85rem 2.2rem;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 2px; font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.07);
+  }
+
+  /* ── SEARCH BOX ───────────────────────────── */
+  .search-section {
+    padding: 0 5vw 5rem;
+    position: relative; z-index: 10;
+    margin-top: -2rem;
+  }
+
+  .search-box {
+    max-width: 1000px; margin: 0 auto;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 4px; padding: 2rem 2.5rem;
+    backdrop-filter: blur(20px);
+    animation: fadeUp 0.7s 0.55s ease both;
+  }
+
+  .search-tabs {
+    display: flex; gap: 0; margin-bottom: 1.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .tab {
+    padding: 0.5rem 1.2rem; font-size: 0.8rem;
+    font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    cursor: pointer; border-bottom: 2px solid transparent;
+    margin-bottom: -1px; transition: color 0.2s, border-color 0.2s;
+  }
+
+  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .search-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    gap: 1rem; align-items: end;
+  }
+
+  .field-group label {
+    display: block; font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem;
+  }
+
+  .field-group input, .field-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 2px; padding: 0.7rem 0.9rem;
+    color: var(--white); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .field-group input::placeholder { color: rgba(255,255,255,0.3); }
+
+  .field-group input:focus, .field-group select:focus {
+    border-color: rgba(201,168,76,0.5);
+  }
+
+  .field-group select option { background: #0d1830; }
+
+  .search-btn {
+    background: var(--gold); color: var(--ink);
+    border: none; border-radius: 2px;
+    padding: 0.7rem 1.6rem; font-size: 0.85rem;
+    font-weight: 700; cursor: pointer; white-space: nowrap;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .search-btn:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ── MARQUEE ──────────────────────────────── */
+  .marquee-wrap {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 1rem 0; overflow: hidden;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .marquee {
+    display: flex; gap: 3rem;
+    animation: scroll 25s linear infinite;
+    white-space: nowrap; width: max-content;
+  }
+
+  .marquee span {
+    font-size: 0.75rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+    font-weight: 500;
+  }
+
+  .marquee span.dot { color: var(--gold); }
+
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── STATS ────────────────────────────────── */
+  .stats {
+    padding: 5rem 5vw;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    max-width: 1200px; margin: 0 auto 5rem;
+    border-radius: 4px; overflow: hidden;
+  }
+
+  .stat {
+    padding: 2.5rem 2rem; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+    transition: background 0.3s;
+  }
+
+  .stat:last-child { border-right: none; }
+  .stat:hover { background: rgba(201,168,76,0.04); }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.2rem; font-weight: 900; line-height: 1;
+    color: var(--gold); display: block;
+  }
+
+  .stat-label {
+    display: block; margin-top: 0.5rem;
+    font-size: 0.78rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(255,255,255,0.45);
+    font-weight: 500;
+  }
+
+  /* ── SECTION HEADING ──────────────────────── */
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 500; margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 1.2rem;
+  }
+
+  /* ── DESTINATIONS ─────────────────────────── */
+  .destinations {
+    padding: 5rem 5vw;
+    max-width: 1300px; margin: 0 auto;
+  }
+
+  .dest-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  .dest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1rem;
+  }
+
+  .dest-card {
+    position: relative; overflow: hidden;
+    border-radius: 3px; cursor: pointer;
+    aspect-ratio: 4/3;
+    background-size: cover; background-position: center;
+    transition: transform 0.4s ease;
+  }
+
+  .dest-card:hover { transform: scale(1.02); }
+  .dest-card:hover .dest-overlay { background: rgba(10,10,20,0.3); }
+  .dest-card:hover .dest-arrow { transform: translate(2px, -2px); }
+
+  .dest-card.tall { grid-row: span 2; aspect-ratio: unset; }
+
+  .dest-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,20,0.9) 0%, rgba(10,10,20,0.1) 60%);
+    transition: background 0.4s;
+  }
+
+  .dest-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 1.5rem;
+  }
+
+  .dest-city {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; line-height: 1.1;
+  }
+
+  .dest-country {
+    font-size: 0.75rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.55);
+    margin-bottom: 0.5rem; font-weight: 500;
+  }
+
+  .dest-price-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 0.8rem;
+  }
+
+  .dest-price {
+    font-size: 0.8rem; color: rgba(255,255,255,0.5);
+  }
+
+  .dest-price strong { color: var(--gold); font-size: 1.1rem; font-weight: 700; }
+
+  .dest-arrow {
+    color: var(--gold); font-size: 1.1rem;
+    transition: transform 0.3s;
+  }
+
+  /* Destination backgrounds using CSS gradients */
+  .dest-paris { background: linear-gradient(135deg, #1a2a4a 0%, #3a4a7a 40%, #2a1a3a 100%); }
+  .dest-tokyo { background: linear-gradient(135deg, #1a0a0a 0%, #4a1a1a 40%, #0a1a2a 100%); }
+  .dest-dubai { background: linear-gradient(135deg, #2a1a00 0%, #5a3a00 40%, #3a2a00 100%); }
+  .dest-nyc { background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 40%, #0a1a1a 100%); }
+  .dest-bali { background: linear-gradient(135deg, #001a0a 0%, #003a1a 40%, #001a2a 100%); }
+
+  .dest-img-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(4rem, 8vw, 8rem);
+    opacity: 0.15;
+  }
+
+  /* ── SERVICES ─────────────────────────────── */
+  .services {
+    padding: 6rem 5vw;
+    background: linear-gradient(180deg, transparent, rgba(26,58,107,0.12) 50%, transparent);
+  }
+
+  .services-inner { max-width: 1200px; margin: 0 auto; }
+
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+
+  .service-card {
+    padding: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 3px; background: rgba(255,255,255,0.025);
+    transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    position: relative; overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+
+  .service-card:hover {
+    border-color: rgba(201,168,76,0.25);
+    background: rgba(201,168,76,0.03);
+    transform: translateY(-4px);
+  }
+
+  .service-card:hover::before { opacity: 1; }
+
+  .service-icon {
+    width: 52px; height: 52px;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.5rem;
+    background: rgba(201,168,76,0.06);
+  }
+
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700;
+    margin-bottom: 0.8rem; letter-spacing: -0.3px;
+  }
+
+  .service-card p {
+    font-size: 0.88rem; line-height: 1.7;
+    color: rgba(255,255,255,0.5); font-weight: 300;
+  }
+
+  /* ── OFFERS ───────────────────────────────── */
+  .offers {
+    padding: 6rem 5vw;
+    max-width: 1200px; margin: 0 auto;
+  }
+
+  .offers-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+
+  .offer-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 3px; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+
+  .offer-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  }
+
+  .offer-tag-wrap {
+    padding: 1.8rem 1.8rem 1.5rem;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+
+  .offer-tag {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold); font-size: 0.65rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    font-weight: 700; padding: 0.25rem 0.7rem;
+    border-radius: 2px; border: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .offer-tag.hot { background: rgba(200,60,60,0.15); color: #e07070; border-color: rgba(200,60,60,0.3); }
+
+  .offer-route {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700; margin-top: 1rem;
+    letter-spacing: -0.3px;
+  }
+
+  .offer-route span { color: rgba(255,255,255,0.4); margin: 0 0.4rem; }
+
+  .offer-body {
+    padding: 1.5rem 1.8rem;
+  }
+
+  .offer-details {
+    display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+  }
+
+  .offer-detail {
+    font-size: 0.78rem; color: rgba(255,255,255,0.45); font-weight: 500;
+  }
+
+  .offer-detail strong { color: rgba(255,255,255,0.8); display: block; font-size: 0.85rem; }
+
+  .offer-price-row {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.2rem;
+  }
+
+  .offer-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900; color: var(--gold); line-height: 1;
+  }
+
+  .offer-price small {
+    display: block; font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem; color: rgba(255,255,255,0.35);
+    font-weight: 400; margin-top: 0.2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .offer-btn {
+    background: transparent; color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 2px; padding: 0.5rem 1.1rem;
+    font-size: 0.8rem; font-weight: 600; cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .offer-btn:hover { background: rgba(201,168,76,0.1); }
+
+  /* ── TESTIMONIALS ─────────────────────────── */
+  .testimonials {
+    padding: 6rem 5vw;
+    background: rgba(255,255,255,0.015);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .testimonials-inner { max-width: 1200px; margin: 0 auto; }
+
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+
+  .testi-card {
+    padding: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 3px; background: rgba(255,255,255,0.025);
+    position: relative;
+  }
+
+  .testi-quote {
+    font-size: 3rem; line-height: 1;
+    color: rgba(201,168,76,0.2);
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 1rem;
+  }
+
+  .testi-text {
+    font-size: 0.92rem; line-height: 1.75;
+    color: rgba(255,255,255,0.6); font-weight: 300;
+    font-style: italic; margin-bottom: 1.5rem;
+  }
+
+  .testi-author {
+    display: flex; align-items: center; gap: 0.8rem;
+    border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.2rem;
+  }
+
+  .testi-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    background: linear-gradient(135deg, rgba(26,58,107,0.6), rgba(42,82,152,0.3));
+    border: 1px solid rgba(201,168,76,0.2);
+    flex-shrink: 0;
+  }
+
+  .testi-name { font-size: 0.85rem; font-weight: 600; }
+  .testi-loc { font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; }
+
+  .stars-row { color: var(--gold); font-size: 0.75rem; margin-bottom: 0.4rem; }
+
+  /* ── NEWSLETTER ───────────────────────────── */
+  .newsletter {
+    padding: 7rem 5vw;
+    max-width: 700px; margin: 0 auto;
+    text-align: center;
+  }
+
+  .newsletter h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 900; line-height: 1.15;
+    letter-spacing: -0.5px; margin-bottom: 1rem;
+  }
+
+  .newsletter p {
+    font-size: 1rem; color: rgba(255,255,255,0.5);
+    line-height: 1.7; margin-bottom: 2.5rem; font-weight: 300;
+  }
+
+  .newsletter-form {
+    display: flex; gap: 0; max-width: 480px; margin: 0 auto;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 2px; overflow: hidden;
+  }
+
+  .newsletter-form input {
+    flex: 1; background: rgba(255,255,255,0.04);
+    border: none; padding: 0.9rem 1.2rem;
+    color: var(--white); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; outline: none;
+  }
+
+  .newsletter-form input::placeholder { color: rgba(255,255,255,0.3); }
+
+  .newsletter-form button {
+    background: var(--gold); color: var(--ink);
+    border: none; padding: 0.9rem 1.5rem;
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s; white-space: nowrap;
+  }
+
+  .newsletter-form button:hover { background: var(--gold-light); }
+
+  .newsletter-note {
+    font-size: 0.72rem; color: rgba(255,255,255,0.25);
+    margin-top: 1rem; letter-spacing: 0.05em;
+  }
+
+  /* ── FOOTER ───────────────────────────────── */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 4rem 5vw 2rem;
+  }
+
+  .footer-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-brand .logo { font-size: 1.5rem; margin-bottom: 1rem; display: block; }
+
+  .footer-brand p {
+    font-size: 0.84rem; color: rgba(255,255,255,0.35);
+    line-height: 1.7; max-width: 260px; font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .social-links { display: flex; gap: 0.6rem; }
+
+  .social-link {
+    width: 34px; height: 34px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 2px; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 0.9rem; text-decoration: none; color: rgba(255,255,255,0.4);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .social-link:hover { border-color: var(--gold); color: var(--gold); }
+
+  .footer-col h4 {
+    font-size: 0.72rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 600; margin-bottom: 1.3rem;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.6rem; }
+  .footer-col ul a {
+    text-decoration: none; color: rgba(255,255,255,0.4);
+    font-size: 0.85rem; font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .footer-col ul a:hover { color: var(--white); }
+
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 2rem; font-size: 0.75rem;
+    color: rgba(255,255,255,0.2);
+  }
+
+  .footer-bottom a { color: rgba(255,255,255,0.3); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--gold); }
+
+  /* ── ANIMATIONS ───────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ───────────────────────────── */
+  @media (max-width: 900px) {
+    .search-fields { grid-template-columns: 1fr 1fr; }
+    .search-btn { grid-column: span 2; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .dest-grid { grid-template-columns: 1fr 1fr; }
+    .dest-card.tall { grid-row: span 1; aspect-ratio: 4/3; }
+    .services-grid, .offers-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    nav ul { display: none; }
+  }
+
+  @media (max-width: 580px) {
+    .services-grid, .offers-grid, .testimonials-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .dest-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .dest-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Sky<span>Rota</span></div>
+  <ul>
+    <li><a href="#destinos">Destinos</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#ofertas">Ofertas</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#contato" class="nav-cta">Reservar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="stars"></div>
+  <div class="plane-streak"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">✦ Agência de Viagens Premium ✦</div>
+    <h1>O Mundo<br>Cabe na sua <em>Agenda</em></h1>
+    <p>Mais de 800 destinos, as melhores tarifas do mercado e atendimento personalizado 24 horas. Sua próxima aventura começa com a SkyRota.</p>
+    <div class="hero-btns">
+      <a href="#busca" class="btn-primary">Buscar Passagens</a>
+      <a href="#destinos" class="btn-secondary">Ver Destinos</a>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<section class="search-section" id="busca">
+  <div class="search-box">
+    <div class="search-tabs">
+      <div class="tab active">Ida e Volta</div>
+      <div class="tab">Somente Ida</div>
+      <div class="tab">Multi-Destino</div>
+    </div>
+    <div class="search-fields">
+      <div class="field-group">
+        <label>Origem</label>
+        <input type="text" placeholder="De onde você parte?">
+      </div>
+      <div class="field-group">
+        <label>Destino</label>
+        <input type="text" placeholder="Para onde vai?">
+      </div>
+      <div class="field-group">
+        <label>Data de Ida</label>
+        <input type="date">
+      </div>
+      <div class="field-group">
+        <label>Passageiros</label>
+        <select>
+          <option>1 Adulto</option>
+          <option>2 Adultos</option>
+          <option>3 Adultos</option>
+          <option>Família</option>
+        </select>
+      </div>
+      <button class="search-btn">Buscar</button>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>Paris</span><span class="dot">◆</span>
+    <span>Tóquio</span><span class="dot">◆</span>
+    <span>Nova York</span><span class="dot">◆</span>
+    <span>Dubai</span><span class="dot">◆</span>
+    <span>Bali</span><span class="dot">◆</span>
+    <span>Lisboa</span><span class="dot">◆</span>
+    <span>Buenos Aires</span><span class="dot">◆</span>
+    <span>Amsterdã</span><span class="dot">◆</span>
+    <span>Sydney</span><span class="dot">◆</span>
+    <span>Roma</span><span class="dot">◆</span>
+    <span>Bangkok</span><span class="dot">◆</span>
+    <span>Cancún</span><span class="dot">◆</span>
+    <!-- repeat for seamless loop -->
+    <span>Paris</span><span class="dot">◆</span>
+    <span>Tóquio</span><span class="dot">◆</span>
+    <span>Nova York</span><span class="dot">◆</span>
+    <span>Dubai</span><span class="dot">◆</span>
+    <span>Bali</span><span class="dot">◆</span>
+    <span>Lisboa</span><span class="dot">◆</span>
+    <span>Buenos Aires</span><span class="dot">◆</span>
+    <span>Amsterdã</span><span class="dot">◆</span>
+    <span>Sydney</span><span class="dot">◆</span>
+    <span>Roma</span><span class="dot">◆</span>
+    <span>Bangkok</span><span class="dot">◆</span>
+    <span>Cancún</span><span class="dot">◆</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats reveal">
+  <div class="stat">
+    <span class="stat-num">800+</span>
+    <span class="stat-label">Destinos Globais</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">2M+</span>
+    <span class="stat-label">Viajantes Felizes</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">98%</span>
+    <span class="stat-label">Satisfação</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">24h</span>
+    <span class="stat-label">Suporte Premium</span>
+  </div>
+</div>
+
+<!-- DESTINATIONS -->
+<section class="destinations reveal" id="destinos">
+  <div class="dest-header">
+    <div>
+      <span class="section-label">Onde ir</span>
+      <h2 class="section-title">Destinos em Destaque</h2>
+    </div>
+    <a href="#" class="btn-secondary" style="font-size:0.82rem;padding:0.6rem 1.4rem;">Ver Todos</a>
+  </div>
+
+  <div class="dest-grid">
+    <!-- Card 1 - tall -->
+    <div class="dest-card dest-paris tall">
+      <div class="dest-img-overlay">🗼</div>
+      <div class="dest-overlay"></div>
+      <div class="dest-info">
+        <div class="dest-country">França</div>
+        <div class="dest-city">Paris</div>
+        <div class="dest-price-row">
+          <div class="dest-price">A partir de <strong>R$ 2.890</strong></div>
+          <div class="dest-arrow">↗</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="dest-card dest-tokyo">
+      <div class="dest-img-overlay">⛩️</div>
+      <div class="dest-overlay"></div>
+      <div class="dest-info">
+        <div class="dest-country">Japão</div>
+        <div class="dest-city">Tóquio</div>
+        <div class="dest-price-row">
+          <div class="dest-price">A partir de <strong>R$ 3.650</strong></div>
+          <div class="dest-arrow">↗</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="dest-card dest-dubai">
+      <div class="dest-img-overlay">🏙️</div>
+      <div class="dest-overlay"></div>
+      <div class="dest-info">
+        <div class="dest-country">Emirados Árabes</div>
+        <div class="dest-city">Dubai</div>
+        <div class="dest-price-row">
+          <div class="dest-price">A partir de <strong>R$ 3.100</strong></div>
+          <div class="dest-arrow">↗</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="dest-card dest-nyc">
+      <div class="dest-img-overlay">🗽</div>
+      <div class="dest-overlay"></div>
+      <div class="dest-info">
+        <div class="dest-country">Estados Unidos</div>
+        <div class="dest-city">Nova York</div>
+        <div class="dest-price-row">
+          <div class="dest-price">A partir de <strong>R$ 2.450</strong></div>
+          <div class="dest-arrow">↗</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="dest-card dest-bali">
+      <div class="dest-img-overlay">🌺</div>
+      <div class="dest-overlay"></div>
+      <div class="dest-info">
+        <div class="dest-country">Indonésia</div>
+        <div class="dest-city">Bali</div>
+        <div class="dest-price-row">
+          <div class="dest-price">A partir de <strong>R$ 3.200</strong></div>
+          <div class="dest-arrow">↗</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services reveal" id="servicos">
+  <div class="services-inner">
+    <div style="text-align:center; margin-bottom: 0.5rem;">
+      <span class="section-label">O que oferecemos</span>
+      <h2 class="section-title">Muito Além da Passagem</h2>
+      <p style="color:rgba(255,255,255,0.45); max-width:500px; margin:0 auto; font-size:0.95rem; line-height:1.7; font-weight:300;">Cuidamos de cada detalhe da sua viagem para que você só precise se preocupar em aproveitar.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">✈️</div>
+        <h3>Passagens Aéreas</h3>
+        <p>Acesso em tempo real às melhores tarifas de mais de 500 companhias aéreas ao redor do mundo, com garantia de melhor preço.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏨</div>
+        <h3>Hotéis Selecionados</h3>
+        <p>Parcerias com os melhores hotéis e pousadas do mundo. Da hospedagem econômica ao resort de luxo, encontramos a opção ideal.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚗</div>
+        <h3>Transfer & Locação</h3>
+        <p>Veículo esperando na chegada, traslados aeroporto-hotel e aluguel de carros nas melhores locadoras internacionais.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛡️</div>
+        <h3>Seguro Viagem</h3>
+        <p>Viaje com tranquilidade. Oferecemos as melhores apólices de seguro viagem com cobertura médica, bagagem e cancelamento.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🗺️</div>
+        <h3>Roteiros Personalizados</h3>
+        <p>Nossos especialistas montam um itinerário sob medida para o seu estilo de viagem, tempo disponível e orçamento.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3>Suporte 24/7</h3>
+        <p>Esteja onde estiver no mundo, nossa equipe está disponível a qualquer hora para resolver imprevistos e auxiliar você.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERS -->
+<section class="offers reveal" id="ofertas">
+  <span class="section-label">Promoções Exclusivas</span>
+  <h2 class="section-title">Ofertas da Semana</h2>
+
+  <div class="offers-grid">
+    <div class="offer-card">
+      <div class="offer-tag-wrap">
+        <div>
+          <div class="offer-tag hot">🔥 Hot Deal</div>
+          <div class="offer-route">GRU <span>→</span> CDG</div>
+        </div>
+      </div>
+      <div class="offer-body">
+        <div class="offer-details">
+          <div class="offer-detail"><strong>São Paulo</strong>Origem</div>
+          <div class="offer-detail"><strong>Paris</strong>Destino</div>
+          <div class="offer-detail"><strong>Mai–Jun</strong>Período</div>
+          <div class="offer-detail"><strong>12h 40min</strong>Duração</div>
+        </div>
+        <div class="offer-price-row">
+          <div class="offer-price">
+            R$ 2.890
+            <small>por pessoa · ida e volta</small>
+          </div>
+          <button class="offer-btn">Reservar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="offer-card">
+      <div class="offer-tag-wrap">
+        <div>
+          <div class="offer-tag">Oferta Especial</div>
+          <div class="offer-route">GIG <span>→</span> JFK</div>
+        </div>
+      </div>
+      <div class="offer-body">
+        <div class="offer-details">
+          <div class="offer-detail"><strong>Rio de Janeiro</strong>Origem</div>
+          <div class="offer-detail"><strong>Nova York</strong>Destino</div>
+          <div class="offer-detail"><strong>Jun–Jul</strong>Período</div>
+          <div class="offer-detail"><strong>10h 20min</strong>Duração</div>
+        </div>
+        <div class="offer-price-row">
+          <div class="offer-price">
+            R$ 2.450
+            <small>por pessoa · ida e volta</small>
+          </div>
+          <button class="offer-btn">Reservar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="offer-card">
+      <div class="offer-tag-wrap">
+        <div>
+          <div class="offer-tag">Últimas Vagas</div>
+          <div class="offer-route">CGH <span>→</span> DXB</div>
+        </div>
+      </div>
+      <div class="offer-body">
+        <div class="offer-details">
+          <div class="offer-detail"><strong>São Paulo</strong>Origem</div>
+          <div class="offer-detail"><strong>Dubai</strong>Destino</div>
+          <div class="offer-detail"><strong>Jul–Ago</strong>Período</div>
+          <div class="offer-detail"><strong>14h 05min</strong>Duração</div>
+        </div>
+        <div class="offer-price-row">
+          <div class="offer-price">
+            R$ 3.100
+            <small>por pessoa · ida e volta</small>
+          </div>
+          <button class="offer-btn">Reservar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials reveal">
+  <div class="testimonials-inner">
+    <div style="text-align:center;">
+      <span class="section-label">Quem viajou com a gente</span>
+      <h2 class="section-title">Histórias Reais</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="stars-row">★★★★★</div>
+        <p class="testi-text">Fiz minha primeira viagem internacional com a SkyRota e foi incrível! Tudo organizado perfeitamente — passagem, hotel, transfer. O suporte durante a viagem foi excepcional.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div>
+            <div class="testi-name">Ana Carolina M.</div>
+            <div class="testi-loc">São Paulo · Viajou para Paris</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="stars-row">★★★★★</div>
+        <p class="testi-text">Consegui uma tarifa absurdamente boa para Tóquio. O consultor me ajudou a montar um roteiro perfeito de 15 dias. Com certeza usarei a SkyRota em todas as minhas próximas viagens!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👨</div>
+          <div>
+            <div class="testi-name">Rodrigo Alves</div>
+            <div class="testi-loc">Belo Horizonte · Viajou para Tóquio</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="stars-row">★★★★★</div>
+        <p class="testi-text">Lua de mel perfeita! A equipe foi super atenciosa, escolheu os melhores voos e hotéis dentro do nosso orçamento. Recomendo de olhos fechados para quem quer viver uma experiência única.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩</div>
+          <div>
+            <div class="testi-name">Juliana &amp; Marcos</div>
+            <div class="testi-loc">Curitiba · Viajaram para Bali</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter reveal" id="contato">
+  <span class="section-label" style="display:block;text-align:center;">Fique por dentro</span>
+  <h2>Receba Ofertas <em style="font-family:'Playfair Display',serif;font-style:italic;color:var(--gold);">Exclusivas</em></h2>
+  <p>Cadastre-se e receba as melhores promoções de passagens aéreas antes de todo mundo, diretamente no seu e-mail.</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="Seu melhor e-mail">
+    <button>Quero Ofertas</button>
+  </div>
+  <p class="newsletter-note">Sem spam. Cancele a qualquer momento. Sua privacidade está protegida.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">Sky<span>Rota</span></span>
+      <p>Sua agência de viagens premium. Conectamos você ao mundo com as melhores tarifas, suporte 24h e experiências inesquecíveis.</p>
+      <div class="social-links">
+        <a href="#" class="social-link">𝕏</a>
+        <a href="#" class="social-link">in</a>
+        <a href="#" class="social-link">ig</a>
+        <a href="#" class="social-link">fb</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#">Sobre Nós</a></li>
+        <li><a href="#">Nossa Equipe</a></li>
+        <li><a href="#">Blog de Viagens</a></li>
+        <li><a href="#">Carreiras</a></li>
+        <li><a href="#">Imprensa</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Serviços</h4>
+      <ul>
+        <li><a href="#">Passagens Aéreas</a></li>
+        <li><a href="#">Reserva de Hotéis</a></li>
+        <li><a href="#">Pacotes Completos</a></li>
+        <li><a href="#">Seguro Viagem</a></li>
+        <li><a href="#">Vistos e Documentos</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Suporte</h4>
+      <ul>
+        <li><a href="#">Central de Ajuda</a></li>
+        <li><a href="#">Política de Cancelamento</a></li>
+        <li><a href="#">Termos de Uso</a></li>
+        <li><a href="#">Privacidade</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025 SkyRota Agência de Viagens Ltda. Todos os direitos reservados.</span>
+    <span>CADASTUR · IATA · ABAV</span>
+  </div>
+</footer>
+
+<script>
+  // Tab toggle
+  document.querySelectorAll('.tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // Stagger children
+        e.target.querySelectorAll('.service-card, .offer-card, .testi-card, .dest-card, .stat').forEach((child, i) => {
+          child.style.transitionDelay = `${i * 0.08}s`;
+          child.classList.add('reveal', 'visible');
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
